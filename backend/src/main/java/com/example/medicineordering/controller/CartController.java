@@ -1,12 +1,12 @@
-package com.pharmacy.controller;
+package com.example.medicineordering.controller;
 
-import com.pharmacy.dto.request.AddCartItemRequest;
+import com.example.medicineordering.dto.AddCartItemRequest;
 
-import com.pharmacy.dto.request.UpdateCartItemRequest;
+import com.example.medicineordering.dto.UpdateCartItemRequest;
 
-import com.pharmacy.dto.response.CartResponse;
+import com.example.medicineordering.dto.CartResponse;
 
-import com.pharmacy.service.CartService;
+import com.example.medicineordering.service.CartService;
 
 import lombok.RequiredArgsConstructor;
 

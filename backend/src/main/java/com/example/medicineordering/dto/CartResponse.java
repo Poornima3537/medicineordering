@@ -1,5 +1,4 @@
 package com.example.medicineordering.dto;
-package com.pharmacy.dto.response;
 
 import lombok.*;
 

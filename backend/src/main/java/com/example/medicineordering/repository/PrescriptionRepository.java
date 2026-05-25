@@ -3,7 +3,7 @@ package com.example.medicineordering.repository;
 
 import com.example.medicineordering.entity.Prescription;
 
-import com.example.medicineordering.PrescriptionStatus;
+import com.example.medicineordering.entity.PrescriptionStatus;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

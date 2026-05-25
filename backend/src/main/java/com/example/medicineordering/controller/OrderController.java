@@ -1,10 +1,10 @@
-package com.pharmacy.controller;
+package com.example.medicineordering.controller;
 
-import com.pharmacy.dto.request.PlaceOrderRequest;
+import com.example.medicineordering.dto.PlaceOrderRequest;
 
-import com.pharmacy.dto.response.OrderResponse;
+import com.example.medicineordering.dto.OrderResponse;
 
-import com.pharmacy.service.OrderService;
+import com.example.medicineordering.service.OrderService;
 
 import lombok.RequiredArgsConstructor;
 

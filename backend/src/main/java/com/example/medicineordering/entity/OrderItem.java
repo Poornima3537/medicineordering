@@ -1,6 +1,5 @@
 package com.example.medicineordering.entity;
 
-package com.pharmacy.entity;
 
 import jakarta.persistence.*;
 

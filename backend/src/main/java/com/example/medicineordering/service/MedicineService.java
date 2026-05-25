@@ -1,6 +1,5 @@
 package com.example.medicineordering.service;
 
-package com.example.medicineordering.service;
 
 import com.example.medicineordering.dto.MedicineRequest;
 

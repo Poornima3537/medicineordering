@@ -1,12 +1,12 @@
 package com.example.medicineordering.service;
 
-import com.pharmacy.dto.response.OrderResponse;
+import com.example.medicineordering.dto.OrderResponse;
 
-import com.pharmacy.dto.response.PrescriptionResponse;
+import com.example.medicineordering.dto.PrescriptionResponse;
 
-import com.pharmacy.entity.*;
+import com.example.medicineordering.entity.*;
 
-import com.pharmacy.repository.*;
+import com.example.medicineordering.repository.*;
 
 import lombok.RequiredArgsConstructor;
 
@@ -241,7 +241,7 @@ public class AdminService {
 
                         .map(item ->
 
-                                com.pharmacy.dto.response
+                                com.example.medicineordering.dto
                                 .OrderItemResponse
 
                                 .builder()
