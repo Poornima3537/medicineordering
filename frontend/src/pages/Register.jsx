@@ -12,7 +12,7 @@ import {
 } from "react-toastify";
 
 import authService
-from "../services/authService";
+from "../service/authService";
 
 function Register() {
 

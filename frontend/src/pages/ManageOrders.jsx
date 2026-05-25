@@ -8,7 +8,7 @@ import {
 } from "react-toastify";
 
 import adminService
-from "../services/adminService";
+from "../service/adminService";
 
 function ManageOrders() {
 

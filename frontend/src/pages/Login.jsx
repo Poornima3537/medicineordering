@@ -17,7 +17,7 @@ import {
 } from "../context/AuthContext";
 
 import authService
-from "../services/authService";
+from "../service/authService";
 
 function Login() {
 

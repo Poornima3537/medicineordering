@@ -7,7 +7,7 @@ import {
 } from "react-toastify";
 
 import prescriptionService
-from "../services/prescriptionService";
+from "../service/prescriptionService";
 
 function UploadPrescription() {
 

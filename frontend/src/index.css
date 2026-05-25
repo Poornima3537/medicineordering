@@ -1,0 +1,170 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #f8f9fa;
+  font-family: Arial, Helvetica, sans-serif;
+  min-height: 100vh;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ul {
+  list-style: none;
+}
+
+button {
+  border: none;
+  outline: none;
+}
+
+input,
+textarea,
+select {
+  outline: none;
+  box-shadow: none !important;
+}
+
+.page-container {
+  min-height: 80vh;
+  padding: 20px;
+}
+
+.auth-container {
+  width: 100%;
+  max-width: 450px;
+  margin: 60px auto;
+  background-color: white;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.auth-title {
+  text-align: center;
+  margin-bottom: 25px;
+  font-weight: bold;
+}
+
+.medicine-card {
+  border: none;
+  border-radius: 10px;
+  transition: 0.3s;
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.medicine-card:hover {
+  transform: translateY(-5px);
+}
+
+.dashboard-card {
+  border-radius: 10px;
+  padding: 20px;
+  background-color: white;
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.status-badge {
+  padding: 6px 12px;
+  border-radius: 20px;
+  color: white;
+  font-size: 14px;
+}
+
+.status-pending {
+  background-color: orange;
+}
+
+.status-confirmed {
+  background-color: blue;
+}
+
+.status-shipped {
+  background-color: purple;
+}
+
+.status-delivered {
+  background-color: green;
+}
+
+.status-cancelled {
+  background-color: red;
+}
+
+.status-valid {
+  background-color: green;
+}
+
+.status-rejected {
+  background-color: red;
+}
+
+.status-processing {
+  background-color: orange;
+}
+
+.navbar-brand {
+  font-weight: bold;
+  font-size: 24px;
+}
+
+.table-container {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.form-container {
+  background-color: white;
+  padding: 25px;
+  border-radius: 10px;
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.empty-message {
+  text-align: center;
+  margin-top: 40px;
+  color: gray;
+}
+
+.loader-container {
+  height: 70vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.search-bar {
+  max-width: 400px;
+}
+
+.filter-container {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.order-summary {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.prescription-box {
+  border: 2px dashed #ccc;
+  padding: 30px;
+  text-align: center;
+  border-radius: 10px;
+  background-color: white;
+}
+
+footer {
+  margin-top: 40px;
+}

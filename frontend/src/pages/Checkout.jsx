@@ -8,10 +8,10 @@ import {
 } from "react-toastify";
 
 import orderService
-from "../services/orderService";
+from "../service/orderService";
 
 import prescriptionService
-from "../services/prescriptionService";
+from "../service/prescriptionService";
 
 function Checkout() {
 

@@ -12,10 +12,10 @@ import {
 } from "react-toastify";
 
 import medicineService
-from "../services/medicineService";
+from "../service/medicineService";
 
 import cartService
-from "../services/cartService";
+from "../service/cartService";
 
 function MedicineDetails() {
 

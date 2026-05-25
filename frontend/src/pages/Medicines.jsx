@@ -13,7 +13,7 @@ import {
 } from "react-toastify";
 
 import medicineService
-from "../services/medicineService";
+from "../service/medicineService";
 
 function EditMedicine() {
 

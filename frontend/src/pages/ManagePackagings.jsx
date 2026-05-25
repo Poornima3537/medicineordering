@@ -8,7 +8,7 @@ import {
 } from "react-toastify";
 
 import packagingService
-from "../services/packagingService";
+from "../service/packagingService";
 
 function ManagePackagings() {
 

@@ -8,7 +8,7 @@ import {
 } from "react-toastify";
 
 import categoryService
-from "../services/categoryService";
+from "../service/categoryService";
 
 function ManageCategories() {
 

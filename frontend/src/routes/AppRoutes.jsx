@@ -1,5 +1,4 @@
 import {
-  BrowserRouter,
   Routes,
   Route,
 } from "react-router-dom";
@@ -23,6 +22,9 @@ from "../pages/Register";
 
 import Medicines
 from "../pages/Medicines";
+
+import MedicineDetails
+from "../pages/MedicineDetails";
 
 import NotFound
 from "../pages/NotFound";
@@ -80,216 +82,212 @@ function AppRoutes() {
 
   return (
 
-    <BrowserRouter>
+    <Routes>
 
-      <Routes>
+      {/* PUBLIC ROUTES */}
 
-        {/* PUBLIC ROUTES */}
+      <Route
+        path="/"
+        element={<Home />}
+      />
 
-        <Route
-          path="/"
-          element={<Home />}
-        />
+      <Route
+        path="/login"
+        element={<Login />}
+      />
 
-        <Route
-  path="/medicines/:id"
-  element={<MedicineDetails />}
-/>
+      <Route
+        path="/register"
+        element={<Register />}
+      />
 
-        <Route
-          path="/login"
-          element={<Login />}
-        />
+      <Route
+        path="/medicines"
+        element={<Medicines />}
+      />
 
-        <Route
-          path="/register"
-          element={<Register />}
-        />
+      <Route
+        path="/medicines/:id"
+        element={<MedicineDetails />}
+      />
 
-        <Route
-          path="/medicines"
-          element={<Medicines />}
-        />
+      {/* USER ROUTES */}
 
-        {/* USER ROUTES */}
+      <Route
+        path="/cart"
+        element={
+          <ProtectedRoute>
 
-        <Route
-          path="/cart"
-          element={
-            <ProtectedRoute>
+            <Cart />
 
-              <Cart />
+          </ProtectedRoute>
+        }
+      />
 
-            </ProtectedRoute>
-          }
-        />
+      <Route
+        path="/checkout"
+        element={
+          <ProtectedRoute>
 
-        <Route
-          path="/checkout"
-          element={
-            <ProtectedRoute>
+            <Checkout />
 
-              <Checkout />
+          </ProtectedRoute>
+        }
+      />
 
-            </ProtectedRoute>
-          }
-        />
+      <Route
+        path="/orders"
+        element={
+          <ProtectedRoute>
 
-        <Route
-          path="/orders"
-          element={
-            <ProtectedRoute>
+            <Orders />
 
-              <Orders />
+          </ProtectedRoute>
+        }
+      />
 
-            </ProtectedRoute>
-          }
-        />
+      <Route
+        path="/upload-prescription"
+        element={
+          <ProtectedRoute>
 
-        <Route
-          path="/upload-prescription"
-          element={
-            <ProtectedRoute>
+            <UploadPrescription />
 
-              <UploadPrescription />
+          </ProtectedRoute>
+        }
+      />
 
-            </ProtectedRoute>
-          }
-        />
+      <Route
+        path="/prescription-status"
+        element={
+          <ProtectedRoute>
 
-        <Route
-          path="/prescription-status"
-          element={
-            <ProtectedRoute>
+            <PrescriptionStatus />
 
-              <PrescriptionStatus />
+          </ProtectedRoute>
+        }
+      />
 
-            </ProtectedRoute>
-          }
-        />
+      {/* ADMIN ROUTES */}
 
-        {/* ADMIN ROUTES */}
+      <Route
+        path="/admin"
+        element={
+          <AdminRoute>
 
-        <Route
-          path="/admin"
-          element={
-            <AdminRoute>
+            <AdminDashboard />
 
-              <AdminDashboard />
+          </AdminRoute>
+        }
+      />
 
-            </AdminRoute>
-          }
-        />
+      <Route
+        path="/admin/medicines"
+        element={
+          <AdminRoute>
 
-        <Route
-          path="/admin/medicines"
-          element={
-            <AdminRoute>
+            <ManageMedicines />
 
-              <ManageMedicines />
+          </AdminRoute>
+        }
+      />
 
-            </AdminRoute>
-          }
-        />
+      <Route
+        path="/admin/add-medicine"
+        element={
+          <AdminRoute>
 
-        <Route
-          path="/admin/add-medicine"
-          element={
-            <AdminRoute>
+            <AddMedicine />
 
-              <AddMedicine />
+          </AdminRoute>
+        }
+      />
 
-            </AdminRoute>
-          }
-        />
+      <Route
+        path="/admin/edit-medicine/:id"
+        element={
+          <AdminRoute>
 
-        <Route
-          path="/admin/edit-medicine/:id"
-          element={
-            <AdminRoute>
+            <EditMedicine />
 
-              <EditMedicine />
+          </AdminRoute>
+        }
+      />
 
-            </AdminRoute>
-          }
-        />
+      <Route
+        path="/admin/orders"
+        element={
+          <AdminRoute>
 
-        <Route
-          path="/admin/orders"
-          element={
-            <AdminRoute>
+            <ManageOrders />
 
-              <ManageOrders />
+          </AdminRoute>
+        }
+      />
 
-            </AdminRoute>
-          }
-        />
+      <Route
+        path="/admin/prescriptions"
+        element={
+          <AdminRoute>
 
-        <Route
-          path="/admin/prescriptions"
-          element={
-            <AdminRoute>
+            <ManagePrescriptions />
 
-              <ManagePrescriptions />
+          </AdminRoute>
+        }
+      />
 
-            </AdminRoute>
-          }
-        />
+      <Route
+        path="/admin/categories"
+        element={
+          <AdminRoute>
 
-        <Route
-          path="/admin/categories"
-          element={
-            <AdminRoute>
+            <ManageCategories />
 
-              <ManageCategories />
+          </AdminRoute>
+        }
+      />
 
-            </AdminRoute>
-          }
-        />
+      <Route
+        path="/admin/dosages"
+        element={
+          <AdminRoute>
 
-        <Route
-          path="/admin/dosages"
-          element={
-            <AdminRoute>
+            <ManageDosages />
 
-              <ManageDosages />
+          </AdminRoute>
+        }
+      />
 
-            </AdminRoute>
-          }
-        />
+      <Route
+        path="/admin/packagings"
+        element={
+          <AdminRoute>
 
-        <Route
-          path="/admin/packagings"
-          element={
-            <AdminRoute>
+            <ManagePackagings />
 
-              <ManagePackagings />
+          </AdminRoute>
+        }
+      />
 
-            </AdminRoute>
-          }
-        />
+      <Route
+        path="/admin/users"
+        element={
+          <AdminRoute>
 
-        <Route
-          path="/admin/users"
-          element={
-            <AdminRoute>
+            <ManageUsers />
 
-              <ManageUsers />
+          </AdminRoute>
+        }
+      />
 
-            </AdminRoute>
-          }
-        />
+      {/* NOT FOUND */}
 
-        {/* NOT FOUND */}
+      <Route
+        path="*"
+        element={<NotFound />}
+      />
 
-        <Route
-          path="*"
-          element={<NotFound />}
-        />
-
-      </Routes>
-
-    </BrowserRouter>
+    </Routes>
   );
 }
 

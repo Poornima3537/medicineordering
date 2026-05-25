@@ -8,7 +8,7 @@ import {
 } from "react-toastify";
 
 import dosageService
-from "../services/dosageService";
+from "../service/dosageService";
 
 function ManageDosages() {
 

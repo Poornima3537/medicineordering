@@ -12,7 +12,7 @@ import {
 } from "react-toastify";
 
 import cartService
-from "../services/cartService";
+from "../service/cartService";
 
 import CartItem
 from "../components/CartItem";
