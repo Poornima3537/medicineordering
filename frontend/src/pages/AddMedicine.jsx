@@ -1,4 +1,5 @@
 import {
+  useEffect,
   useState,
 } from "react";
 
@@ -12,6 +13,15 @@ import {
 
 import medicineService
 from "../service/medicineService";
+
+import categoryService
+from "../service/categoryService";
+
+import dosageService
+from "../service/dosageService";
+
+import packagingService
+from "../service/packagingService";
 
 function AddMedicine() {
 
@@ -33,6 +43,60 @@ function AddMedicine() {
       prescriptionRequired:
       false,
     });
+
+  const [categories,
+    setCategories] =
+    useState([]);
+
+  const [dosages,
+    setDosages] =
+    useState([]);
+
+  const [packagings,
+    setPackagings] =
+    useState([]);
+
+  useEffect(() => {
+
+    fetchOptions();
+
+  }, []);
+
+  const fetchOptions =
+    async () => {
+
+    try {
+
+      const [
+        categoryData,
+        dosageData,
+        packagingData,
+      ] =
+        await Promise.all([
+
+          categoryService
+            .getAllCategories(),
+
+          dosageService
+            .getAllDosages(),
+
+          packagingService
+            .getAllPackagings(),
+        ]);
+
+      setCategories(categoryData);
+
+      setDosages(dosageData);
+
+      setPackagings(packagingData);
+
+    } catch (error) {
+
+      toast.error(
+        "Failed to load medicine options"
+      );
+    }
+  };
 
   const handleChange = (
     e
@@ -249,11 +313,10 @@ function AddMedicine() {
                 >
 
                   <label>
-                    Category ID
+                    Category
                   </label>
 
-                  <input
-                    type="number"
+                  <select
                     name=
                     "categoryId"
                     className=
@@ -266,7 +329,27 @@ function AddMedicine() {
                     onChange=
                     {handleChange}
                     required
-                  />
+                  >
+
+                    <option value="">
+                      Select Category
+                    </option>
+
+                    {
+                      categories.map(
+                        (category) => (
+
+                          <option
+                            key={category.id}
+                            value={category.id}
+                          >
+                            {category.name}
+                          </option>
+                        )
+                      )
+                    }
+
+                  </select>
 
                 </div>
 
@@ -281,11 +364,10 @@ function AddMedicine() {
                 >
 
                   <label>
-                    Dosage ID
+                    Dosage
                   </label>
 
-                  <input
-                    type="number"
+                  <select
                     name="dosageId"
                     className=
                     "form-control"
@@ -297,7 +379,27 @@ function AddMedicine() {
                     onChange=
                     {handleChange}
                     required
-                  />
+                  >
+
+                    <option value="">
+                      Select Dosage
+                    </option>
+
+                    {
+                      dosages.map(
+                        (dosage) => (
+
+                          <option
+                            key={dosage.id}
+                            value={dosage.id}
+                          >
+                            {dosage.value}
+                          </option>
+                        )
+                      )
+                    }
+
+                  </select>
 
                 </div>
 
@@ -306,11 +408,10 @@ function AddMedicine() {
                 >
 
                   <label>
-                    Packaging ID
+                    Packaging
                   </label>
 
-                  <input
-                    type="number"
+                  <select
                     name=
                     "packagingId"
                     className=
@@ -323,7 +424,27 @@ function AddMedicine() {
                     onChange=
                     {handleChange}
                     required
-                  />
+                  >
+
+                    <option value="">
+                      Select Packaging
+                    </option>
+
+                    {
+                      packagings.map(
+                        (packaging) => (
+
+                          <option
+                            key={packaging.id}
+                            value={packaging.id}
+                          >
+                            {packaging.type}
+                          </option>
+                        )
+                      )
+                    }
+
+                  </select>
 
                 </div>
 

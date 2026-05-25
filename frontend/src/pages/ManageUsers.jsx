@@ -1,4 +1,45 @@
+import {
+  useEffect,
+  useState,
+} from "react";
+
+import {
+  toast,
+} from "react-toastify";
+
+import adminService
+from "../service/adminService";
+
 function ManageUsers() {
+
+  const [users,
+    setUsers] =
+    useState([]);
+
+  useEffect(() => {
+
+    fetchUsers();
+
+  }, []);
+
+  const fetchUsers =
+    async () => {
+
+    try {
+
+      const data =
+        await adminService
+          .getAllUsers();
+
+      setUsers(data);
+
+    } catch (error) {
+
+      toast.error(
+        "Failed to load users"
+      );
+    }
+  };
 
   return (
 
@@ -30,17 +71,32 @@ function ManageUsers() {
 
           <tbody>
 
-            <tr>
+            {
+              users.map(
+                (user) => (
 
-              <td>1</td>
+                  <tr key={user.id}>
 
-              <td>Navya</td>
+                    <td>
+                      {user.id}
+                    </td>
 
-              <td>navya@gmail.com</td>
+                    <td>
+                      {user.name}
+                    </td>
 
-              <td>USER</td>
+                    <td>
+                      {user.email}
+                    </td>
 
-            </tr>
+                    <td>
+                      {user.role}
+                    </td>
+
+                  </tr>
+                )
+              )
+            }
 
           </tbody>
 

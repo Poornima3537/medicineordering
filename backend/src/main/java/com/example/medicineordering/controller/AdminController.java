@@ -4,6 +4,8 @@ import com.example.medicineordering.dto.OrderResponse;
 
 import com.example.medicineordering.dto.PrescriptionResponse;
 
+import com.example.medicineordering.dto.UserResponse;
+
 import com.example.medicineordering.entity.OrderStatus;
 
 import com.example.medicineordering.entity.PaymentStatus;
@@ -31,6 +33,17 @@ public class AdminController {
     private final
     AdminService
     adminService;
+
+    /* GET ALL USERS */
+
+    @GetMapping("/users")
+
+    public List<UserResponse>
+    getAllUsers() {
+
+        return adminService
+                .getAllUsers();
+    }
 
     /* GET ALL ORDERS */
 

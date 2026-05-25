@@ -120,6 +120,62 @@ function ManageDosages() {
 
       </div>
 
+      <table className="table table-bordered">
+
+        <thead>
+
+          <tr>
+
+            <th>ID</th>
+
+            <th>Dosage</th>
+
+            <th>Actions</th>
+
+          </tr>
+
+        </thead>
+
+        <tbody>
+
+          {
+            dosages.map(
+              (dosage) => (
+
+                <tr key={dosage.id}>
+
+                  <td>
+                    {dosage.id}
+                  </td>
+
+                  <td>
+                    {dosage.value}
+                  </td>
+
+                  <td>
+
+                    <button
+                      className="btn btn-danger btn-sm"
+                      onClick={() =>
+                        handleDelete(
+                          dosage.id
+                        )
+                      }
+                    >
+                      Delete
+                    </button>
+
+                  </td>
+
+                </tr>
+              )
+            )
+          }
+
+        </tbody>
+
+      </table>
+
     </div>
   );
 }

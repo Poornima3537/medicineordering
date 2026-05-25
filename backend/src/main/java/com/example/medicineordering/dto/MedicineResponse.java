@@ -23,5 +23,17 @@ public class MedicineResponse {
 
     private Integer stockQuantity;
 
+    private Long categoryId;
+
+    private String categoryName;
+
+    private Long dosageId;
+
+    private String dosageValue;
+
+    private Long packagingId;
+
+    private String packagingType;
+
     private Boolean prescriptionRequired;
 }

@@ -17,7 +17,7 @@ const addDosage =
 
   const response =
     await axiosInstance.post(
-      "/admin/dosages",
+      "/dosages",
       data
     );
 
@@ -29,7 +29,7 @@ const deleteDosage =
 
   const response =
     await axiosInstance.delete(
-      `/admin/dosages/${id}`
+      `/dosages/${id}`
     );
 
   return response.data;

@@ -55,7 +55,7 @@ function Orders() {
           orders.map((order) => (
 
             <div
-              key={order.id}
+              key={order.orderId}
               className="card shadow mb-4"
             >
 
@@ -64,7 +64,7 @@ function Orders() {
                 <h5>
                   Order ID:
                   {" "}
-                  {order.id}
+                  {order.orderId}
                 </h5>
 
                 <p>

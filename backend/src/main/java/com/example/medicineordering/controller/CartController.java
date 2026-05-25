@@ -8,6 +8,10 @@ import com.example.medicineordering.dto.CartResponse;
 
 import com.example.medicineordering.service.CartService;
 
+import com.example.medicineordering.service.CurrentUserService;
+
+import jakarta.servlet.http.HttpServletRequest;
+
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.web.bind.annotation.*;
@@ -26,13 +30,9 @@ public class CartController {
     CartService
     cartService;
 
-    /*
-       TEMP USER ID
-       Later JWT integration
-       will replace this
-    */
-
-    private final Long USER_ID = 1L;
+    private final
+    CurrentUserService
+    currentUserService;
 
     /* ADD TO CART */
 
@@ -41,12 +41,17 @@ public class CartController {
     public CartResponse addToCart(
 
             @RequestBody
-            AddCartItemRequest request
+            AddCartItemRequest request,
+
+            HttpServletRequest httpRequest
     ) {
 
         return cartService
                 .addToCart(
-                        USER_ID,
+                        currentUserService
+                                .getCurrentUserId(
+                                        httpRequest
+                                ),
                         request
                 );
     }
@@ -55,10 +60,17 @@ public class CartController {
 
     @GetMapping
 
-    public CartResponse getCart() {
+    public CartResponse getCart(
+            HttpServletRequest request
+    ) {
 
         return cartService
-                .getCart(USER_ID);
+                .getCart(
+                        currentUserService
+                                .getCurrentUserId(
+                                        request
+                                )
+                );
     }
 
     /* UPDATE CART ITEM */
@@ -74,13 +86,18 @@ public class CartController {
             Long cartItemId,
 
             @RequestBody
-            UpdateCartItemRequest request
+            UpdateCartItemRequest request,
+
+            HttpServletRequest httpRequest
     ) {
 
         return cartService
                 .updateCartItem(
 
-                        USER_ID,
+                        currentUserService
+                                .getCurrentUserId(
+                                        httpRequest
+                                ),
 
                         cartItemId,
 

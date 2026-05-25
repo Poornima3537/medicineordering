@@ -1,122 +1,116 @@
 import {
+  useContext,
   useEffect,
+  useMemo,
   useState,
 } from "react";
-
-import {
-  useNavigate,
-  useParams,
-} from "react-router-dom";
 
 import {
   toast,
 } from "react-toastify";
 
+import MedicineCard
+from "../components/MedicineCard";
+
+import SearchBar
+from "../components/SearchBar";
+
+import {
+  AuthContext,
+} from "../context/AuthContext";
+
+import cartService
+from "../service/cartService";
+
 import medicineService
 from "../service/medicineService";
 
-function EditMedicine() {
+function Medicines() {
 
-  const { id } =
-    useParams();
+  const { user } =
+    useContext(AuthContext);
 
-  const navigate =
-    useNavigate();
+  const [medicines,
+    setMedicines] =
+    useState([]);
 
-  const [formData,
-    setFormData] =
-    useState({
-
-      name: "",
-      description: "",
-      manufacturer: "",
-      price: "",
-      stockQuantity: "",
-      categoryId: "",
-      dosageId: "",
-      packagingId: "",
-      prescriptionRequired:
-      false,
-    });
+  const [search,
+    setSearch] =
+    useState("");
 
   useEffect(() => {
 
-    fetchMedicine();
+    fetchMedicines();
 
   }, []);
 
-  const fetchMedicine =
+  const fetchMedicines =
     async () => {
 
     try {
 
-      const medicines =
+      const data =
         await medicineService
           .getAllMedicines();
 
-      const medicine =
-        medicines.find(
-          (m) =>
-            m.id === Number(id)
-        );
-
-      setFormData(medicine);
+      setMedicines(data);
 
     } catch (error) {
 
       toast.error(
-        "Failed to load medicine"
+        "Failed to load medicines"
       );
     }
   };
 
-  const handleChange = (
-    e
-  ) => {
+  const filteredMedicines =
+    useMemo(() => {
 
-    const {
-      name,
-      value,
-      type,
-      checked,
-    } = e.target;
+      const searchText =
+        search.trim().toLowerCase();
 
-    setFormData({
+      if (!searchText) {
+        return medicines;
+      }
 
-      ...formData,
+      return medicines.filter(
+        (medicine) =>
+          medicine.name
+            ?.toLowerCase()
+            .includes(searchText) ||
+          medicine.description
+            ?.toLowerCase()
+            .includes(searchText) ||
+          medicine.manufacturer
+            ?.toLowerCase()
+            .includes(searchText)
+      );
 
-      [name]:
-        type === "checkbox"
-        ? checked
-        : value,
-    });
-  };
+    }, [
+      medicines,
+      search,
+    ]);
 
-  const handleSubmit =
-    async (e) => {
+  const handleAddToCart =
+    async (medicineId) => {
 
-    e.preventDefault();
+    if (user?.role !== "USER") {
+      return;
+    }
 
     try {
 
-      await medicineService
-        .updateMedicine(
-          id,
-          formData
-        );
+      await cartService
+        .addToCart(medicineId);
 
       toast.success(
-        "Medicine Updated"
-      );
-
-      navigate(
-        "/admin/medicines"
+        "Medicine added to cart"
       );
 
     } catch (error) {
 
       toast.error(
-        "Update Failed"
+        "Failed to add to cart"
       );
     }
   };
@@ -125,87 +119,58 @@ function EditMedicine() {
 
     <div className="container mt-5">
 
-      <div className="card shadow p-4">
+      <h2 className="mb-4">
+        Medicines
+      </h2>
 
-        <h2 className="mb-4">
-          Edit Medicine
-        </h2>
+      <div className="mb-4">
 
-        <form onSubmit={handleSubmit}>
-
-          <input
-            type="text"
-            name="name"
-            className="form-control mb-3"
-            placeholder="Medicine Name"
-            value={formData.name}
-            onChange={handleChange}
-          />
-
-          <textarea
-            name="description"
-            className="form-control mb-3"
-            placeholder="Description"
-            value={formData.description}
-            onChange={handleChange}
-          ></textarea>
-
-          <input
-            type="text"
-            name="manufacturer"
-            className="form-control mb-3"
-            placeholder="Manufacturer"
-            value={formData.manufacturer}
-            onChange={handleChange}
-          />
-
-          <input
-            type="number"
-            name="price"
-            className="form-control mb-3"
-            placeholder="Price"
-            value={formData.price}
-            onChange={handleChange}
-          />
-
-          <input
-            type="number"
-            name="stockQuantity"
-            className="form-control mb-3"
-            placeholder="Stock"
-            value={formData.stockQuantity}
-            onChange={handleChange}
-          />
-
-          <div className="form-check mb-3">
-
-            <input
-              type="checkbox"
-              name="prescriptionRequired"
-              className="form-check-input"
-              checked={
-                formData
-                .prescriptionRequired
-              }
-              onChange={handleChange}
-            />
-
-            <label className="form-check-label">
-              Prescription Required
-            </label>
-
-          </div>
-
-          <button className="btn btn-primary">
-            Update Medicine
-          </button>
-
-        </form>
+        <SearchBar
+          search={search}
+          handleSearch={(e) =>
+            setSearch(e.target.value)
+          }
+        />
 
       </div>
+
+      {
+        filteredMedicines.length > 0
+        ? (
+          <div className="row g-4">
+
+            {
+              filteredMedicines.map(
+                (medicine) => (
+
+                  <div
+                    className="col-md-4"
+                    key={medicine.id}
+                  >
+
+                    <MedicineCard
+                      medicine={medicine}
+                      handleAddToCart=
+                      {handleAddToCart}
+                      showAddToCart=
+                      {user?.role !== "ADMIN"}
+                    />
+
+                  </div>
+                )
+              )
+            }
+
+          </div>
+        ) : (
+          <h4>
+            No medicines found
+          </h4>
+        )
+      }
 
     </div>
   );
 }
 
-export default EditMedicine;
+export default Medicines;

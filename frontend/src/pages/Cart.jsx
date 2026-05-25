@@ -5,6 +5,7 @@ import {
 
 import {
   useNavigate,
+  Link,
 } from "react-router-dom";
 
 import {
@@ -13,6 +14,9 @@ import {
 
 import cartService
 from "../service/cartService";
+
+import prescriptionService
+from "../service/prescriptionService";
 
 import CartItem
 from "../components/CartItem";
@@ -26,22 +30,49 @@ function Cart() {
     setCart] =
     useState(null);
 
+  const [hasPrescription,
+    setHasPrescription] =
+    useState(false);
+
+  const prescriptionRequired =
+    cart?.cartItems?.some(
+      (item) =>
+        item.prescriptionRequired
+    ) || false;
+
+  const canCheckout =
+    !prescriptionRequired
+    || hasPrescription;
+
   useEffect(() => {
 
-    fetchCart();
+    fetchCartDetails();
 
   }, []);
 
-  const fetchCart =
+  const fetchCartDetails =
     async () => {
 
     try {
 
-      const data =
-        await cartService
-          .getCart();
+      const [
+        cartData,
+        prescriptions,
+      ] =
+        await Promise.all([
 
-      setCart(data);
+          cartService
+            .getCart(),
+
+          prescriptionService
+            .getMyPrescriptions(),
+        ]);
+
+      setCart(cartData);
+
+      setHasPrescription(
+        prescriptions.length > 0
+      );
 
     } catch (error) {
 
@@ -65,7 +96,7 @@ function Cart() {
           quantity + 1
         );
 
-      fetchCart();
+      fetchCartDetails();
 
     } catch (error) {
 
@@ -92,7 +123,7 @@ function Cart() {
           quantity - 1
         );
 
-      fetchCart();
+      fetchCartDetails();
 
     } catch (error) {
 
@@ -114,7 +145,7 @@ function Cart() {
         "Item removed"
       );
 
-      fetchCart();
+      fetchCartDetails();
 
     } catch (error) {
 
@@ -172,6 +203,8 @@ function Cart() {
               <button
                 className=
                 "btn btn-primary mt-3"
+                disabled=
+                {!canCheckout}
                 onClick={() =>
                   navigate(
                     "/checkout"
@@ -180,6 +213,26 @@ function Cart() {
               >
                 Proceed To Checkout
               </button>
+
+              {
+                prescriptionRequired
+                && !hasPrescription
+                && (
+                  <div className=
+                    "text-danger mt-2"
+                  >
+                    Upload prescription to proceed checkout
+                  </div>
+                )
+              }
+
+              <Link
+                to="/upload-prescription"
+                className=
+                "btn btn-outline-primary mt-3 ms-2"
+              >
+                Upload Prescription
+              </Link>
 
             </div>
 

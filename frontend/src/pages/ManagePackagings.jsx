@@ -69,6 +69,28 @@ function ManagePackagings() {
     }
   };
 
+  const handleDelete =
+    async (id) => {
+
+    try {
+
+      await packagingService
+        .deletePackaging(id);
+
+      toast.success(
+        "Packaging Deleted"
+      );
+
+      fetchPackagings();
+
+    } catch {
+
+      toast.error(
+        "Delete Failed"
+      );
+    }
+  };
+
   return (
 
     <div className="container mt-5">
@@ -97,6 +119,62 @@ function ManagePackagings() {
         </button>
 
       </div>
+
+      <table className="table table-bordered">
+
+        <thead>
+
+          <tr>
+
+            <th>ID</th>
+
+            <th>Packaging</th>
+
+            <th>Actions</th>
+
+          </tr>
+
+        </thead>
+
+        <tbody>
+
+          {
+            packagings.map(
+              (packaging) => (
+
+                <tr key={packaging.id}>
+
+                  <td>
+                    {packaging.id}
+                  </td>
+
+                  <td>
+                    {packaging.type}
+                  </td>
+
+                  <td>
+
+                    <button
+                      className="btn btn-danger btn-sm"
+                      onClick={() =>
+                        handleDelete(
+                          packaging.id
+                        )
+                      }
+                    >
+                      Delete
+                    </button>
+
+                  </td>
+
+                </tr>
+              )
+            )
+          }
+
+        </tbody>
+
+      </table>
 
     </div>
   );

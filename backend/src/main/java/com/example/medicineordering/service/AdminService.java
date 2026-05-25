@@ -4,6 +4,8 @@ import com.example.medicineordering.dto.OrderResponse;
 
 import com.example.medicineordering.dto.PrescriptionResponse;
 
+import com.example.medicineordering.dto.UserResponse;
+
 import com.example.medicineordering.entity.*;
 
 import com.example.medicineordering.repository.*;
@@ -31,6 +33,32 @@ public class AdminService {
     private final
     PrescriptionRepository
     prescriptionRepository;
+
+    private final
+    UserRepository
+    userRepository;
+
+    private final
+    MedicineRepository
+    medicineRepository;
+
+    /* GET ALL USERS */
+
+    public List<UserResponse>
+    getAllUsers() {
+
+        return userRepository.findAll()
+                .stream()
+                .map(user ->
+                        UserResponse.builder()
+                                .id(user.getId())
+                                .name(user.getName())
+                                .email(user.getEmail())
+                                .role(user.getRole().name())
+                                .build()
+                )
+                .collect(Collectors.toList());
+    }
 
     /* GET ALL ORDERS */
 
@@ -217,6 +245,12 @@ public class AdminService {
                         order.getId()
                 )
 
+                .userName(
+                        getUserName(
+                                order.getUserId()
+                        )
+                )
+
                 .totalAmount(
                         order.getTotalAmount()
                 )
@@ -291,8 +325,20 @@ public class AdminService {
                         prescription.getId()
                 )
 
+                .userName(
+                        getUserName(
+                                prescription.getUserId()
+                        )
+                )
+
                 .medicineId(
                         prescription.getMedicineId()
+                )
+
+                .medicineName(
+                        getMedicineName(
+                                prescription.getMedicineId()
+                        )
                 )
 
                 .fileName(
@@ -309,5 +355,37 @@ public class AdminService {
                 )
 
                 .build();
+    }
+
+    private String getUserName(
+            Long userId
+    ) {
+
+        if (userId == null) {
+            return "";
+        }
+
+        return userRepository
+                .findById(userId)
+                .map(user ->
+                        user.getName()
+                )
+                .orElse("");
+    }
+
+    private String getMedicineName(
+            Long medicineId
+    ) {
+
+        if (medicineId == null) {
+            return "";
+        }
+
+        return medicineRepository
+                .findById(medicineId)
+                .map(medicine ->
+                        medicine.getName()
+                )
+                .orElse("");
     }
 }

@@ -63,6 +63,7 @@ public class AuthService  {
                 .role(user.getRole().name())
                 .email(user.getEmail())
                 .name(user.getName())
+                .address(user.getAddress())
                 .build();
     }
 
@@ -98,6 +99,25 @@ public class AuthService  {
                 .role(user.getRole().name())
                 .email(user.getEmail())
                 .name(user.getName())
+                .address(user.getAddress())
+                .build();
+    }
+
+    public AuthResponse getProfile(Long userId) {
+
+        User user =
+                userRepository.findById(userId)
+                        .orElseThrow(() ->
+                                new UnauthorizedException(
+                                        "User Not Found"
+                                )
+                        );
+
+        return AuthResponse.builder()
+                .role(user.getRole().name())
+                .email(user.getEmail())
+                .name(user.getName())
+                .address(user.getAddress())
                 .build();
     }
 }

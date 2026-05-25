@@ -20,6 +20,10 @@ function UploadPrescription() {
       fileType: "",
     });
 
+  const [selectedFile,
+    setSelectedFile] =
+    useState(null);
+
   const handleChange = (
     e
   ) => {
@@ -33,10 +37,40 @@ function UploadPrescription() {
     });
   };
 
+  const handleFileChange = (
+    e
+  ) => {
+
+    const file =
+      e.target.files[0];
+
+    setSelectedFile(file);
+
+    setFormData({
+
+      ...formData,
+
+      fileName:
+        file?.name || "",
+
+      fileType:
+        file?.type || "",
+    });
+  };
+
   const handleSubmit =
     async (e) => {
 
     e.preventDefault();
+
+    if (!selectedFile) {
+
+      toast.error(
+        "Please select prescription file"
+      );
+
+      return;
+    }
 
     try {
 
@@ -55,6 +89,8 @@ function UploadPrescription() {
         fileName: "",
         fileType: "",
       });
+
+      setSelectedFile(null);
 
     } catch (error) {
 
@@ -98,63 +134,17 @@ function UploadPrescription() {
               >
 
                 <label>
-                  Medicine ID
+                  Prescription File
                 </label>
 
                 <input
-                  type="number"
-                  name="medicineId"
+                  type="file"
                   className=
                   "form-control"
-                  value=
-                  {formData.medicineId}
+                  accept=
+                  ".pdf,image/*"
                   onChange=
-                  {handleChange}
-                  required
-                />
-
-              </div>
-
-              <div className=
-                "mb-3"
-              >
-
-                <label>
-                  File Name
-                </label>
-
-                <input
-                  type="text"
-                  name="fileName"
-                  className=
-                  "form-control"
-                  value=
-                  {formData.fileName}
-                  onChange=
-                  {handleChange}
-                  required
-                />
-
-              </div>
-
-              <div className=
-                "mb-3"
-              >
-
-                <label>
-                  File Type
-                </label>
-
-                <input
-                  type="text"
-                  name="fileType"
-                  className=
-                  "form-control"
-                  placeholder="pdf/image"
-                  value=
-                  {formData.fileType}
-                  onChange=
-                  {handleChange}
+                  {handleFileChange}
                   required
                 />
 

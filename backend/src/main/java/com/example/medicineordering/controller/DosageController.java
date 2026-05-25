@@ -25,4 +25,10 @@ public class DosageController {
     public ResponseEntity<List<DosageResponse>> getAllDosages() {
         return ResponseEntity.ok(dosageService.getAllDosages());
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteDosage(@PathVariable Long id) {
+        dosageService.deleteDosage(id);
+        return ResponseEntity.ok("Dosage Deleted Successfully");
+    }
 }

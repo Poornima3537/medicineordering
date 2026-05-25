@@ -39,6 +39,12 @@ public class Medicine {
     @Column(nullable = false)
     private Integer stockQuantity;
 
+    private Long categoryId;
+
+    private Long dosageId;
+
+    private Long packagingId;
+
     @Column(nullable = false)
     private Boolean prescriptionRequired;
 }

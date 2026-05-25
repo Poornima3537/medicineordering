@@ -6,6 +6,10 @@ import com.example.medicineordering.dto.OrderResponse;
 
 import com.example.medicineordering.service.OrderService;
 
+import com.example.medicineordering.service.CurrentUserService;
+
+import jakarta.servlet.http.HttpServletRequest;
+
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.web.bind.annotation.*;
@@ -26,13 +30,9 @@ public class OrderController {
     OrderService
     orderService;
 
-    /*
-       TEMP USER ID
-       Later JWT integration
-       will replace this
-    */
-
-    private final Long USER_ID = 1L;
+    private final
+    CurrentUserService
+    currentUserService;
 
     /* PLACE ORDER */
 
@@ -41,13 +41,18 @@ public class OrderController {
     public OrderResponse placeOrder(
 
             @RequestBody
-            PlaceOrderRequest request
+            PlaceOrderRequest request,
+
+            HttpServletRequest httpRequest
     ) {
 
         return orderService
                 .placeOrder(
 
-                        USER_ID,
+                        currentUserService
+                                .getCurrentUserId(
+                                        httpRequest
+                                ),
 
                         request
                 );
@@ -58,11 +63,16 @@ public class OrderController {
     @GetMapping("/my")
 
     public List<OrderResponse>
-    getUserOrders() {
+    getUserOrders(
+            HttpServletRequest request
+    ) {
 
         return orderService
                 .getUserOrders(
-                        USER_ID
+                        currentUserService
+                                .getCurrentUserId(
+                                        request
+                                )
                 );
     }
 }

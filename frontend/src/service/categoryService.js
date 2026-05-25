@@ -17,7 +17,7 @@ const addCategory =
 
   const response =
     await axiosInstance.post(
-      "/admin/categories",
+      "/categories",
       data
     );
 
@@ -29,7 +29,7 @@ const deleteCategory =
 
   const response =
     await axiosInstance.delete(
-      `/admin/categories/${id}`
+      `/categories/${id}`
     );
 
   return response.data;

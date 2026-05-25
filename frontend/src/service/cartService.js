@@ -6,7 +6,11 @@ const addToCart =
 
   const response =
     await axiosInstance.post(
-      `/cart/add/${medicineId}`
+      "/cart/add",
+      {
+        medicineId,
+        quantity: 1,
+      }
     );
 
   return response.data;

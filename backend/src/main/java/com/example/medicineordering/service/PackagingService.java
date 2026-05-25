@@ -50,4 +50,9 @@ public class PackagingService {
                 )
                 .collect(Collectors.toList());
     }
+
+    public void deletePackaging(Long id) {
+
+        packagingRepository.deleteById(id);
+    }
 }

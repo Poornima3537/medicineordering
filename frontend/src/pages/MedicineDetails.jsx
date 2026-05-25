@@ -1,4 +1,5 @@
 import {
+  useContext,
   useEffect,
   useState,
 } from "react";
@@ -17,7 +18,14 @@ from "../service/medicineService";
 import cartService
 from "../service/cartService";
 
+import {
+  AuthContext,
+} from "../context/AuthContext";
+
 function MedicineDetails() {
+
+  const { user } =
+    useContext(AuthContext);
 
   const { id } =
     useParams();
@@ -61,6 +69,10 @@ function MedicineDetails() {
 
   const handleAddToCart =
     async () => {
+
+    if (user?.role !== "USER") {
+      return;
+    }
 
     try {
 
@@ -202,14 +214,19 @@ function MedicineDetails() {
               )
             }
 
-            <button
-              className=
-              "btn btn-primary"
-              onClick=
-              {handleAddToCart}
-            >
-              Add To Cart
-            </button>
+            {
+              user?.role !== "ADMIN"
+              && (
+                <button
+                  className=
+                  "btn btn-primary"
+                  onClick=
+                  {handleAddToCart}
+                >
+                  Add To Cart
+                </button>
+              )
+            }
 
           </div>
 

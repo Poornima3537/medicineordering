@@ -249,39 +249,9 @@ function Home() {
 
       </div>
 
-      {/* PRESCRIPTION INFO */}
+      
 
-      <div className=
-        "bg-light py-5 mt-5"
-      >
-
-        <div className=
-          "container text-center"
-        >
-
-          <h2>
-            Prescription Required?
-          </h2>
-
-          <p className=
-            "mt-3"
-          >
-            Upload your prescription
-            and wait for admin validation
-            before placing your order.
-          </p>
-
-          <Link
-            to="/upload-prescription"
-            className=
-            "btn btn-primary"
-          >
-            Upload Prescription
-          </Link>
-
-        </div>
-
-      </div>
+    
 
     </div>
   );

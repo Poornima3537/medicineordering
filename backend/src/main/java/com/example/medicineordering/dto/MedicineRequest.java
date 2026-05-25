@@ -21,5 +21,11 @@ public class MedicineRequest {
 
     private Integer stockQuantity;
 
+    private Long categoryId;
+
+    private Long dosageId;
+
+    private Long packagingId;
+
     private Boolean prescriptionRequired;
 }

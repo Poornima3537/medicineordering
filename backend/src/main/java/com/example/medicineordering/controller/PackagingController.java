@@ -25,4 +25,10 @@ public class PackagingController {
     public ResponseEntity<List<PackagingResponse>> getAllPackagings() {
         return ResponseEntity.ok(packagingService.getAllPackagings());
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deletePackaging(@PathVariable Long id) {
+        packagingService.deletePackaging(id);
+        return ResponseEntity.ok("Packaging Deleted Successfully");
+    }
 }

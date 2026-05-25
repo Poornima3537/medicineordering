@@ -17,7 +17,7 @@ const addPackaging =
 
   const response =
     await axiosInstance.post(
-      "/admin/packagings",
+      "/packagings",
       data
     );
 
@@ -29,7 +29,7 @@ const deletePackaging =
 
   const response =
     await axiosInstance.delete(
-      `/admin/packagings/${id}`
+      `/packagings/${id}`
     );
 
   return response.data;

@@ -157,18 +157,30 @@ function Navbar() {
                   </li>
                 </>
               ) : (
-                <li className=
-                  "nav-item"
-                >
-                  <button
-                    className=
-                    "btn btn-danger ms-2"
-                    onClick=
-                      {handleLogout}
+                <>
+                  <li className=
+                    "nav-item d-flex align-items-center"
                   >
-                    Logout
-                  </button>
-                </li>
+                    <span className=
+                      "navbar-text text-white me-3"
+                    >
+                      {user.name}
+                    </span>
+                  </li>
+
+                  <li className=
+                    "nav-item"
+                  >
+                    <button
+                      className=
+                      "btn btn-danger ms-2"
+                      onClick=
+                        {handleLogout}
+                    >
+                      Logout
+                    </button>
+                  </li>
+                </>
               )
             }
 

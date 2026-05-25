@@ -5,6 +5,7 @@ import {
 function MedicineCard({
   medicine,
   handleAddToCart,
+  showAddToCart = true,
 }) {
 
   return (
@@ -89,17 +90,22 @@ function MedicineCard({
           )
         }
 
-        <button
-          className=
-          "btn btn-primary w-100 mt-3"
-          onClick={() =>
-            handleAddToCart(
-              medicine.id
-            )
-          }
-        >
-          Add To Cart
-        </button>
+        {
+          showAddToCart
+          && (
+            <button
+              className=
+              "btn btn-primary w-100 mt-3"
+              onClick={() =>
+                handleAddToCart(
+                  medicine.id
+                )
+              }
+            >
+              Add To Cart
+            </button>
+          )
+        }
 
       </div>
 

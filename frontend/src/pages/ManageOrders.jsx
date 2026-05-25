@@ -146,11 +146,11 @@ function ManageOrders() {
                 (order) => (
 
                   <tr
-                    key={order.id}
+                    key={order.orderId}
                   >
 
                     <td>
-                      {order.id}
+                      {order.orderId}
                     </td>
 
                     <td>
@@ -193,7 +193,7 @@ function ManageOrders() {
                           "form-select"
                           onChange={(e) =>
                             handleStatusUpdate(
-                              order.id,
+                              order.orderId,
                               e.target.value
                             )
                           }
@@ -234,7 +234,7 @@ function ManageOrders() {
                           "form-select"
                           onChange={(e) =>
                             handlePaymentUpdate(
-                              order.id,
+                              order.orderId,
                               e.target.value
                             )
                           }

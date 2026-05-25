@@ -15,7 +15,7 @@ function OrderCard({
         <h5>
           Order ID:
           {" "}
-          {order.id}
+          {order.orderId}
         </h5>
 
         <p>

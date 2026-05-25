@@ -18,14 +18,27 @@ const getAllPrescriptions = async () => {
   return response.data;
 };
 
+const getAllUsers = async () => {
+
+  const response = await axiosInstance.get(
+    "/admin/users"
+  );
+
+  return response.data;
+};
+
 const updatePrescriptionStatus = async (
   id,
   status
 ) => {
 
+  const action =
+    status === "VALID"
+      ? "validate"
+      : "reject";
+
   const response = await axiosInstance.put(
-    `/admin/prescriptions/${id}`,
-    { status }
+    `/admin/prescriptions/${id}/${action}`
   );
 
   return response.data;
@@ -37,8 +50,11 @@ const updateOrderStatus = async (
 ) => {
 
   const response = await axiosInstance.put(
-    `/admin/orders/${id}`,
-    { status }
+    `/admin/orders/${id}/status`,
+    null,
+    {
+      params: { status },
+    }
   );
 
   return response.data;
@@ -50,8 +66,11 @@ const updatePaymentStatus = async (
 ) => {
 
   const response = await axiosInstance.put(
-    `/admin/orders/payment/${id}`,
-    { paymentStatus }
+    `/admin/orders/${id}/payment`,
+    null,
+    {
+      params: { paymentStatus },
+    }
   );
 
   return response.data;
@@ -62,6 +81,8 @@ const adminService = {
   getAllOrders,
 
   getAllPrescriptions,
+
+  getAllUsers,
 
   updatePrescriptionStatus,
 

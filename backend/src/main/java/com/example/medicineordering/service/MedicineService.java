@@ -7,7 +7,13 @@ import com.example.medicineordering.dto.MedicineResponse;
 
 import com.example.medicineordering.entity.Medicine;
 
+import com.example.medicineordering.repository.CategoryRepository;
+
+import com.example.medicineordering.repository.DosageRepository;
+
 import com.example.medicineordering.repository.MedicineRepository;
+
+import com.example.medicineordering.repository.PackagingRepository;
 
 import lombok.RequiredArgsConstructor;
 
@@ -25,6 +31,18 @@ public class MedicineService {
     private final
     MedicineRepository
     medicineRepository;
+
+    private final
+    CategoryRepository
+    categoryRepository;
+
+    private final
+    DosageRepository
+    dosageRepository;
+
+    private final
+    PackagingRepository
+    packagingRepository;
 
     /* GET ALL MEDICINES */
 
@@ -67,6 +85,18 @@ public class MedicineService {
 
                 .stockQuantity(
                         request.getStockQuantity()
+                )
+
+                .categoryId(
+                        request.getCategoryId()
+                )
+
+                .dosageId(
+                        request.getDosageId()
+                )
+
+                .packagingId(
+                        request.getPackagingId()
                 )
 
                 .prescriptionRequired(
@@ -121,6 +151,18 @@ public class MedicineService {
 
         medicine.setStockQuantity(
                 request.getStockQuantity()
+        );
+
+        medicine.setCategoryId(
+                request.getCategoryId()
+        );
+
+        medicine.setDosageId(
+                request.getDosageId()
+        );
+
+        medicine.setPackagingId(
+                request.getPackagingId()
         );
 
         medicine.setPrescriptionRequired(
@@ -181,11 +223,89 @@ public class MedicineService {
                         medicine.getStockQuantity()
                 )
 
+                .categoryId(
+                        medicine.getCategoryId()
+                )
+
+                .categoryName(
+                        getCategoryName(
+                                medicine.getCategoryId()
+                        )
+                )
+
+                .dosageId(
+                        medicine.getDosageId()
+                )
+
+                .dosageValue(
+                        getDosageValue(
+                                medicine.getDosageId()
+                        )
+                )
+
+                .packagingId(
+                        medicine.getPackagingId()
+                )
+
+                .packagingType(
+                        getPackagingType(
+                                medicine.getPackagingId()
+                        )
+                )
+
                 .prescriptionRequired(
                         medicine
                                 .getPrescriptionRequired()
                 )
 
                 .build();
+    }
+
+    private String getCategoryName(
+            Long categoryId
+    ) {
+
+        if (categoryId == null) {
+            return "";
+        }
+
+        return categoryRepository
+                .findById(categoryId)
+                .map(category ->
+                        category.getName()
+                )
+                .orElse("");
+    }
+
+    private String getDosageValue(
+            Long dosageId
+    ) {
+
+        if (dosageId == null) {
+            return "";
+        }
+
+        return dosageRepository
+                .findById(dosageId)
+                .map(dosage ->
+                        dosage.getValue()
+                )
+                .orElse("");
+    }
+
+    private String getPackagingType(
+            Long packagingId
+    ) {
+
+        if (packagingId == null) {
+            return "";
+        }
+
+        return packagingRepository
+                .findById(packagingId)
+                .map(packaging ->
+                        packaging.getType()
+                )
+                .orElse("");
     }
 }

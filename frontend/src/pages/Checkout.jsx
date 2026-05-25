@@ -1,4 +1,5 @@
 import {
+  useContext,
   useEffect,
   useState,
 } from "react";
@@ -7,53 +8,92 @@ import {
   toast,
 } from "react-toastify";
 
+import {
+  AuthContext,
+} from "../context/AuthContext";
+
 import orderService
 from "../service/orderService";
+
+import authService
+from "../service/authService";
+
+import cartService
+from "../service/cartService";
 
 import prescriptionService
 from "../service/prescriptionService";
 
 function Checkout() {
 
-  const [address,
-    setAddress] =
-    useState("");
+  const { user } =
+    useContext(AuthContext);
 
-  const [validPrescription,
-    setValidPrescription] =
+  const [addressConfirmed,
+    setAddressConfirmed] =
+    useState(false);
+
+  const [deliveryAddress,
+    setDeliveryAddress] =
+    useState(
+      user?.address || ""
+    );
+
+  const [hasPrescription,
+    setHasPrescription] =
+    useState(false);
+
+  const [prescriptionRequired,
+    setPrescriptionRequired] =
     useState(false);
 
   useEffect(() => {
 
-    checkPrescription();
+    loadCheckoutDetails();
 
   }, []);
 
-  const checkPrescription =
+  const loadCheckoutDetails =
     async () => {
 
     try {
 
-      const data =
-        await prescriptionService
-          .getMyPrescriptions();
+      const [
+        profile,
+        cart,
+        prescriptions,
+      ] =
+        await Promise.all([
 
-      const isValid =
-        data.some(
-          (prescription) =>
+          authService
+            .getProfile(),
 
-            prescription.status
-            === "VALID"
-        );
+          cartService
+            .getCart(),
 
-      setValidPrescription(
-        isValid
+          prescriptionService
+            .getMyPrescriptions(),
+        ]);
+
+      setDeliveryAddress(
+        profile.address || user?.address || ""
+      );
+
+      setHasPrescription(
+        prescriptions.length > 0
+      );
+
+      setPrescriptionRequired(
+        cart.cartItems?.some(
+          (item) =>
+            item.prescriptionRequired
+        ) || false
       );
 
     } catch (error) {
 
       toast.error(
-        "Failed to check prescriptions"
+        "Failed to load checkout details"
       );
     }
   };
@@ -67,7 +107,7 @@ function Checkout() {
         .placeOrder({
 
           deliveryAddress:
-          address,
+          deliveryAddress,
         });
 
       toast.success(
@@ -114,28 +154,35 @@ function Checkout() {
                 Delivery Address
               </label>
 
-              <textarea
+              <div
                 className=
-                "form-control"
-                rows="4"
-                value={address}
-                onChange={(e) =>
-                  setAddress(
-                    e.target.value
-                  )
+                "border rounded p-3 bg-light"
+              >
+                {
+                  deliveryAddress
+                  || "Address not found"
                 }
-              ></textarea>
+              </div>
 
             </div>
 
             {
-              validPrescription
+              !prescriptionRequired
               ? (
                 <div className=
                   "alert alert-success"
                 >
 
-                  Prescription Validated
+                  Prescription Not Required
+
+                </div>
+              ) : hasPrescription
+              ? (
+                <div className=
+                  "alert alert-success"
+                >
+
+                  Prescription Uploaded
 
                 </div>
               ) : (
@@ -143,17 +190,50 @@ function Checkout() {
                   "alert alert-danger"
                 >
 
-                  Valid Prescription Required
+                  Upload Prescription Required
 
                 </div>
               )
             }
 
+            <div className=
+              "form-check mb-3"
+            >
+
+              <input
+                type="checkbox"
+                className=
+                "form-check-input"
+                id="confirmAddress"
+                checked=
+                {addressConfirmed}
+                onChange={(e) =>
+                  setAddressConfirmed(
+                    e.target.checked
+                  )
+                }
+              />
+
+              <label
+                className=
+                "form-check-label"
+                htmlFor="confirmAddress"
+              >
+                Confirm delivery address
+              </label>
+
+            </div>
+
             <button
               className=
               "btn btn-primary w-100"
               disabled=
-              {!validPrescription}
+              {
+                !hasPrescription
+                && prescriptionRequired
+                || !addressConfirmed
+                || !deliveryAddress
+              }
               onClick=
               {handlePlaceOrder}
             >

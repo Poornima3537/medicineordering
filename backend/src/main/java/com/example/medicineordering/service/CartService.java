@@ -140,6 +140,11 @@ public class CartService {
                                         item.getSubtotal()
                                 )
 
+                                .prescriptionRequired(
+                                        item.getMedicine()
+                                                .getPrescriptionRequired()
+                                )
+
                                 .build()
                 )
 

@@ -51,4 +51,9 @@ public class DosageService {
                 )
                 .collect(Collectors.toList());
     }
+
+    public void deleteDosage(Long id) {
+
+        dosageRepository.deleteById(id);
+    }
 }

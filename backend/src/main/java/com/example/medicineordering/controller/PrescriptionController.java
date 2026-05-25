@@ -8,6 +8,10 @@ import com.example.medicineordering.entity.PrescriptionStatus;
 
 import com.example.medicineordering.service.PrescriptionService;
 
+import com.example.medicineordering.service.CurrentUserService;
+
+import jakarta.servlet.http.HttpServletRequest;
+
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.web.bind.annotation.*;
@@ -28,13 +32,9 @@ public class PrescriptionController {
     PrescriptionService
     prescriptionService;
 
-    /*
-       TEMP USER ID
-       Later JWT integration
-       will replace this
-    */
-
-    private final Long USER_ID = 1L;
+    private final
+    CurrentUserService
+    currentUserService;
 
     /* UPLOAD PRESCRIPTION */
 
@@ -44,13 +44,18 @@ public class PrescriptionController {
     uploadPrescription(
 
             @RequestBody
-            PrescriptionRequest request
+            PrescriptionRequest request,
+
+            HttpServletRequest httpRequest
     ) {
 
         return prescriptionService
                 .uploadPrescription(
 
-                        USER_ID,
+                        currentUserService
+                                .getCurrentUserId(
+                                        httpRequest
+                                ),
 
                         request
                 );
@@ -61,11 +66,16 @@ public class PrescriptionController {
     @GetMapping("/my")
 
     public List<PrescriptionResponse>
-    getUserPrescriptions() {
+    getUserPrescriptions(
+            HttpServletRequest request
+    ) {
 
         return prescriptionService
                 .getUserPrescriptions(
-                        USER_ID
+                        currentUserService
+                                .getCurrentUserId(
+                                        request
+                                )
                 );
     }
 

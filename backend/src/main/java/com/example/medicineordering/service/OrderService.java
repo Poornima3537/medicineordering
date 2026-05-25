@@ -99,19 +99,10 @@ public class OrderService {
                                     userId
                             );
 
-            boolean validPrescription =
-                    prescriptions.stream()
-
-                    .anyMatch(p ->
-
-                            p.getStatus()
-                            == PrescriptionStatus.VALID
-                    );
-
-            if (!validPrescription) {
+            if (prescriptions.isEmpty()) {
 
                 throw new RuntimeException(
-                        "Valid Prescription Required"
+                        "Prescription Required"
                 );
             }
         }

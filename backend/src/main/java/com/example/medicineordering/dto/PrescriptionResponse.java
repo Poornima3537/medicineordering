@@ -13,7 +13,11 @@ public class PrescriptionResponse {
 
     private Long id;
 
+    private String userName;
+
     private Long medicineId;
+
+    private String medicineName;
 
     private String fileName;
 

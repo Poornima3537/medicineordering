@@ -15,6 +15,8 @@ public class OrderResponse {
 
     private Long orderId;
 
+    private String userName;
+
     private Double totalAmount;
 
     private String status;

@@ -27,9 +27,20 @@ const register = async (
   return response.data;
 };
 
+const getProfile = async () => {
+
+  const response =
+    await axiosInstance.get(
+      "/auth/profile"
+    );
+
+  return response.data;
+};
+
 const authService = {
   login,
   register,
+  getProfile,
 };
 
 export default authService;
