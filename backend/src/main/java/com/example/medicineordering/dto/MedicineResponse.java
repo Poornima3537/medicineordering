@@ -1,0 +1,28 @@
+package com.example.medicineordering.dto;
+
+package com.pharmacy.dto.response;
+
+import lombok.*;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+
+public class MedicineResponse {
+
+    private Long id;
+
+    private String name;
+
+    private String description;
+
+    private String manufacturer;
+
+    private Double price;
+
+    private Integer stockQuantity;
+
+    private Boolean prescriptionRequired;
+}
