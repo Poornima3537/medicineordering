@@ -1,0 +1,7 @@
+package com.example.medicineordering.repository;
+
+import com.example.medicineordering.entity.Category;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface CategoryRepository extends JpaRepository<Category, Long> {
+}
