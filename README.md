@@ -21,7 +21,6 @@ A full-stack medicine ordering web application built with React, Spring Boot, an
 - Manage categories
 - Manage dosages
 - Manage packaging types
-- Manage users
 - Validate or reject prescriptions
 - Update order status
 - Update payment status
